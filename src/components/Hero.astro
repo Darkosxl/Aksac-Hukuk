@@ -10,7 +10,7 @@ const copy = labels[lang];
 ---
 
 <section class="hero" data-hero aria-label="Featured content">
-  <div class="hero-slides">
+  <div class="hero-slides" data-hero-track>
     {heroSlides.map((slide, index) => (
       <article class={`hero-slide ${index === 0 ? "is-active" : ""}`} data-hero-slide aria-hidden={index === 0 ? "false" : "true"}>
         <div class="hero-image" style={`background-image: url('${slide.image}')`}></div>

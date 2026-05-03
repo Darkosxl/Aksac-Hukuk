@@ -343,21 +343,30 @@ h3 {
   background: var(--charcoal);
 }
 
-.hero-slides,
-.hero-slide,
 .hero-image,
 .hero-overlay {
   position: absolute;
   inset: 0;
 }
 
+.hero-slides {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 850ms cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+}
+
 .hero-slide {
-  opacity: 0;
-  transition: opacity 700ms ease;
+  position: relative;
+  flex: 0 0 100%;
+  min-width: 100%;
+  overflow: hidden;
 }
 
 .hero-slide.is-active {
-  opacity: 1;
   z-index: 1;
 }
 
@@ -365,6 +374,11 @@ h3 {
   background-position: center;
   background-size: cover;
   transform: scale(1.03);
+  transition: transform 850ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.hero-slide.is-active .hero-image {
+  transform: scale(1);
 }
 
 .hero-overlay {
