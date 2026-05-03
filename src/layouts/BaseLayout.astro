@@ -1,0 +1,169 @@
+---
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import { firm, labels, type Lang } from "@data/site";
+import "@styles/global.css";
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  bodyClass?: string;
+}
+
+const { lang, title, description, bodyClass = "" } = Astro.props;
+const copy = labels[lang];
+const pageTitle = title ? `${title} | ${firm.name[lang]}` : firm.name[lang];
+const metaDescription =
+  description ??
+  (lang === "tr"
+    ? "Aksaç Hukuk & Arabuluculuk için modern, iki dilli hukuk bürosu web sitesi."
+    : "Modern bilingual law firm website for Aksaç Law & Mediation.");
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={metaDescription} />
+    <meta name="theme-color" content="#343434" />
+    <title>{pageTitle}</title>
+    <link rel="icon" href="/assets/aksac/favicon.ico" />
+  </head>
+  <body class={bodyClass}>
+    <Header lang={lang} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <div class="cookie-banner" data-cookie-banner hidden>
+      <p>{copy.cookie}</p>
+      <div class="cookie-actions">
+        <button type="button" class="ghost-button small" data-cookie-settings>{copy.settings}</button>
+        <button type="button" class="gold-button small" data-cookie-accept>{copy.accept}</button>
+      </div>
+    </div>
+    <script is:inline>
+      const body = document.body;
+
+      document.querySelectorAll("[data-menu-toggle]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const expanded = button.getAttribute("aria-expanded") === "true";
+          button.setAttribute("aria-expanded", String(!expanded));
+          body.classList.toggle("nav-open", !expanded);
+        });
+      });
+
+      document.querySelectorAll("[data-search-open]").forEach((button) => {
+        button.addEventListener("click", () => {
+          body.classList.add("search-open");
+          const input = document.querySelector("[data-search-input]");
+          if (input) input.focus();
+        });
+      });
+
+      document.querySelectorAll("[data-search-close]").forEach((button) => {
+        button.addEventListener("click", () => body.classList.remove("search-open"));
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          body.classList.remove("search-open", "nav-open");
+          document.querySelectorAll("[data-menu-toggle]").forEach((button) => {
+            button.setAttribute("aria-expanded", "false");
+          });
+        }
+      });
+
+      document.querySelectorAll("[data-hero]").forEach((hero) => {
+        const slides = [...hero.querySelectorAll("[data-hero-slide]")];
+        const dots = [...hero.querySelectorAll("[data-hero-dot]")];
+        const previous = hero.querySelector("[data-hero-prev]");
+        const next = hero.querySelector("[data-hero-next]");
+        let active = 0;
+        let timer;
+
+        const show = (index) => {
+          active = (index + slides.length) % slides.length;
+          slides.forEach((slide, slideIndex) => {
+            slide.classList.toggle("is-active", slideIndex === active);
+            slide.setAttribute("aria-hidden", String(slideIndex !== active));
+          });
+          dots.forEach((dot, dotIndex) => {
+            dot.classList.toggle("is-active", dotIndex === active);
+            dot.setAttribute("aria-current", dotIndex === active ? "true" : "false");
+          });
+        };
+
+        const advance = (direction) => {
+          show(active + direction);
+          window.clearInterval(timer);
+          timer = window.setInterval(() => show(active + 1), 7000);
+        };
+
+        dots.forEach((dot, index) => dot.addEventListener("click", () => advance(index - active)));
+        previous?.addEventListener("click", () => advance(-1));
+        next?.addEventListener("click", () => advance(1));
+        show(0);
+        timer = window.setInterval(() => show(active + 1), 7000);
+      });
+
+      document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+        const track = carousel.querySelector("[data-carousel-track]");
+        carousel.querySelector("[data-carousel-prev]")?.addEventListener("click", () => {
+          track?.scrollBy({ left: -360, behavior: "smooth" });
+        });
+        carousel.querySelector("[data-carousel-next]")?.addEventListener("click", () => {
+          track?.scrollBy({ left: 360, behavior: "smooth" });
+        });
+      });
+
+      document.querySelectorAll("[data-filter]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const value = button.getAttribute("data-filter");
+          const group = button.closest("[data-filter-group]");
+          group?.querySelectorAll("[data-filter]").forEach((item) => {
+            item.classList.toggle("is-active", item === button);
+          });
+          group?.querySelectorAll("[data-filter-item]").forEach((card) => {
+            const matches = value === "all" || card.getAttribute("data-filter-item") === value;
+            card.toggleAttribute("hidden", !matches);
+          });
+        });
+      });
+
+      document.querySelectorAll("[data-contact-form]").forEach((form) => {
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const data = new FormData(form);
+          const name = String(data.get("name") || "").trim();
+          const email = String(data.get("email") || "").trim();
+          const message = String(data.get("message") || "").trim();
+          if (!name || !email || !message) {
+            form.classList.add("has-error");
+            return;
+          }
+          form.classList.remove("has-error");
+          const phone = String(data.get("phone") || "").trim();
+          const subject = encodeURIComponent(`Website inquiry - ${name}`);
+          const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`);
+          window.location.href = `mailto:hukuk@aksac.av.tr?subject=${subject}&body=${body}`;
+        });
+      });
+
+      const banner = document.querySelector("[data-cookie-banner]");
+      if (banner && localStorage.getItem("aksac-cookie-ok") !== "1") {
+        banner.hidden = false;
+      }
+      document.querySelector("[data-cookie-accept]")?.addEventListener("click", () => {
+        localStorage.setItem("aksac-cookie-ok", "1");
+        if (banner) banner.hidden = true;
+      });
+      document.querySelector("[data-cookie-settings]")?.addEventListener("click", () => {
+        localStorage.setItem("aksac-cookie-ok", "1");
+        if (banner) banner.hidden = true;
+      });
+    </script>
+  </body>
+</html>

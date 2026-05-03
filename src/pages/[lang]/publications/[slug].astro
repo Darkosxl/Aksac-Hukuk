@@ -1,0 +1,35 @@
+---
+import PageHero from "@components/PageHero.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { articles, languages, t, type Lang } from "@data/site";
+
+export function getStaticPaths() {
+  return languages.flatMap((lang) =>
+    articles.map((article) => ({
+      params: { lang, slug: article.slug },
+      props: { article }
+    }))
+  );
+}
+
+const lang = Astro.params.lang as Lang;
+const { article } = Astro.props;
+const date = new Intl.DateTimeFormat(lang === "tr" ? "tr-TR" : "en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric"
+}).format(new Date(article.date));
+---
+
+<BaseLayout lang={lang} title={t(article.title, lang)} description={t(article.summary, lang)}>
+  <PageHero lang={lang} title={t(article.title, lang)} text={`${t(article.category, lang)} · ${date}`} />
+  <section class="section-shell article-detail">
+    <img src={article.image} alt="" loading="lazy" />
+    <p class="lead">{t(article.summary, lang)}</p>
+    <p>
+      {lang === "tr"
+        ? "Bu yayın kartı, Aksaç'ın çalışma alanlarını modern site yapısında göstermek için hazırlanmış örnek içeriktir. Yayına alınmadan önce büro tarafından sağlanacak nihai makale metniyle değiştirilmelidir."
+        : "This publication entry is sample content prepared to present Aksaç practice areas in the modern site structure. It should be replaced with final article text supplied by the firm before launch."}
+    </p>
+  </section>
+</BaseLayout>

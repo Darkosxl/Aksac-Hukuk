@@ -1,0 +1,82 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.*
+
+# Astro / Vite generated files
+.astro/
+dist/
+.vite/
+
+# Build and deployment artifacts
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+coverage/
+.nyc_output/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Package manager caches
+.npm/
+.yarn/
+.pnpm-store/
+
+# Runtime / temporary files
+tmp/
+temp/
+.tmp/
+*.tmp
+*.temp
+*.pid
+*.seed
+*.pid.lock
+
+# Docker local overrides
+docker-compose.override.yml
+
+# Editor and IDE files
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Local certificates / keys
+*.pem
+*.key
+*.crt
+*.csr
+
+# Plesk / hosting leftovers
+.ftpquota
+error_log
+httpdocs_old/
+backup/
+backups/

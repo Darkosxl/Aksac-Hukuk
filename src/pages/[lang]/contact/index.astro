@@ -1,0 +1,53 @@
+---
+import PageHero from "@components/PageHero.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { firm, labels, languages, type Lang } from "@data/site";
+
+export function getStaticPaths() {
+  return languages.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const copy = labels[lang];
+---
+
+<BaseLayout lang={lang} title={copy.contact}>
+  <PageHero lang={lang} title={copy.contactUs} text={lang === "tr" ? "Bizimle iletişime geçin" : "Get in touch with us"} />
+  <section class="section-shell contact-layout">
+    <div class="contact-info-panel">
+      <p class="eyebrow">{copy.address}</p>
+      <h2>{firm.name[lang]}</h2>
+      <ul>
+        <li><strong>{copy.address}</strong><span>{firm.address[lang]}</span></li>
+        <li><strong>{copy.phone}</strong><a href={`tel:${firm.phone.replace(/[^+\d]/g, "")}`}>{firm.phone}</a></li>
+        <li><strong>{copy.fax}</strong><span>{firm.fax}</span></li>
+        <li><strong>{copy.email}</strong><a href={`mailto:${firm.email}`}>{firm.email}</a></li>
+      </ul>
+      <a class="outline-button" target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=%C5%9Eemsettin%20G%C3%BCnaltay%20Caddesi%20Konyal%C4%B1lar%20Apt%20No%20244%2F5%20Kad%C4%B1k%C3%B6y%20%C4%B0stanbul">
+        {lang === "tr" ? "Haritada Aç" : "Open Map"}
+      </a>
+    </div>
+    <form class="contact-form" data-contact-form novalidate>
+      <div class="form-error" role="alert">
+        {lang === "tr" ? "Lütfen ad, eposta ve mesaj alanlarını doldurun." : "Please fill name, email and message fields."}
+      </div>
+      <label>
+        <span>{copy.name}</span>
+        <input name="name" required autocomplete="name" />
+      </label>
+      <label>
+        <span>{copy.email}</span>
+        <input name="email" required type="email" autocomplete="email" />
+      </label>
+      <label>
+        <span>{copy.phone}</span>
+        <input name="phone" autocomplete="tel" />
+      </label>
+      <label>
+        <span>{copy.message}</span>
+        <textarea name="message" required rows="6"></textarea>
+      </label>
+      <button class="gold-button" type="submit">{copy.send}</button>
+    </form>
+  </section>
+</BaseLayout>

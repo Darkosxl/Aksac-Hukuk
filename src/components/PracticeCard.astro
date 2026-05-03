@@ -1,0 +1,22 @@
+---
+import Icon from "@components/Icon.astro";
+import { localizedPath, t, type Lang, type PracticeArea } from "@data/site";
+
+interface Props {
+  lang: Lang;
+  area: PracticeArea;
+  compact?: boolean;
+}
+
+const { lang, area, compact = false } = Astro.props;
+---
+
+<article class:list={["practice-card", { compact }]}>
+  <a href={localizedPath(lang, `practice-areas/${area.slug}`)} aria-label={t(area.title, lang)}>
+    <span class="icon-frame"><Icon name={area.icon} /></span>
+    <span>
+      <strong>{t(area.title, lang)}</strong>
+      {!compact && <em>{t(area.summary, lang)}</em>}
+    </span>
+  </a>
+</article>

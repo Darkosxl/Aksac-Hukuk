@@ -1,0 +1,27 @@
+---
+import { localizedPath, t, type Article, type Lang } from "@data/site";
+
+interface Props {
+  lang: Lang;
+  article: Article;
+}
+
+const { lang, article } = Astro.props;
+const date = new Intl.DateTimeFormat(lang === "tr" ? "tr-TR" : "en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric"
+}).format(new Date(article.date));
+---
+
+<article class="article-card" data-filter-item={article.category[lang]}>
+  <a href={localizedPath(lang, `publications/${article.slug}`)}>
+    <img src={article.image} alt="" loading="lazy" />
+    <div>
+      <p class="article-category">{t(article.category, lang)}</p>
+      <h3>{t(article.title, lang)}</h3>
+      <time datetime={article.date}>{date}</time>
+      <p>{t(article.summary, lang)}</p>
+    </div>
+  </a>
+</article>

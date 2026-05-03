@@ -1,0 +1,53 @@
+---
+import PageHero from "@components/PageHero.astro";
+import PracticeCard from "@components/PracticeCard.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { labels, languages, localizedPath, practiceAreas, t, type Lang } from "@data/site";
+
+export function getStaticPaths() {
+  return languages.flatMap((lang) =>
+    practiceAreas.map((area) => ({
+      params: { lang, slug: area.slug },
+      props: { area }
+    }))
+  );
+}
+
+const lang = Astro.params.lang as Lang;
+const { area } = Astro.props;
+const copy = labels[lang];
+const related = practiceAreas.filter((item) => item.slug !== area.slug).slice(0, 3);
+---
+
+<BaseLayout lang={lang} title={t(area.title, lang)} description={t(area.summary, lang)}>
+  <PageHero lang={lang} title={t(area.title, lang)} text={t(area.summary, lang)} />
+  <section class="section-shell detail-layout">
+    <article class="detail-copy">
+      <img class="detail-image" src={area.image} alt="" loading="lazy" />
+      {area.body.map((paragraph) => <p>{t(paragraph, lang)}</p>)}
+      <h2>{lang === "tr" ? "Hizmet Kapsamı" : "Service Scope"}</h2>
+      <ul class="check-list">
+        {area.bullets.map((bullet) => <li>{t(bullet, lang)}</li>)}
+      </ul>
+    </article>
+    <aside class="detail-sidebar">
+      <h2>{copy.services}</h2>
+      <nav>
+        {practiceAreas.map((item) => (
+          <a class={item.slug === area.slug ? "is-active" : ""} href={localizedPath(lang, `practice-areas/${item.slug}`)}>
+            {t(item.title, lang)}
+          </a>
+        ))}
+      </nav>
+      <a class="gold-button" href={localizedPath(lang, "contact")}>{copy.contactUs}</a>
+    </aside>
+  </section>
+  <section class="section-shell related-section">
+    <div class="section-heading left">
+      <h2>{lang === "tr" ? "İlgili Alanlar" : "Related Areas"}</h2>
+    </div>
+    <div class="practice-grid">
+      {related.map((item) => <PracticeCard lang={lang} area={item} />)}
+    </div>
+  </section>
+</BaseLayout>

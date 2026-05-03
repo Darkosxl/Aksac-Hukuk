@@ -1,0 +1,25 @@
+---
+import { localizedPath, type Lang } from "@data/site";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  eyebrow?: string;
+  text?: string;
+}
+
+const { lang, title, eyebrow, text } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="section-shell">
+    <p class="eyebrow">{eyebrow ?? (lang === "tr" ? "Aksaç Hukuk" : "Aksaç Law")}</p>
+    <h1>{title}</h1>
+    {text && <p>{text}</p>}
+    <div class="breadcrumbs">
+      <a href={localizedPath(lang)}>{lang === "tr" ? "Anasayfa" : "Home"}</a>
+      <span>/</span>
+      <span>{title}</span>
+    </div>
+  </div>
+</section>

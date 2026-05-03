@@ -1,0 +1,9 @@
+.git
+.agents
+.codex
+.astro
+dist
+node_modules
+npm-debug.log*
+*.zip
+.DS_Store

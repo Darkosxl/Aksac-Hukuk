@@ -1,0 +1,26 @@
+---
+import PageHero from "@components/PageHero.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { labels, languages, legalPages, t, type Lang } from "@data/site";
+
+export function getStaticPaths() {
+  return languages.flatMap((lang) =>
+    legalPages.map((page) => ({
+      params: { lang, slug: page.slug },
+      props: { page }
+    }))
+  );
+}
+
+const lang = Astro.params.lang as Lang;
+const { page } = Astro.props;
+const copy = labels[lang];
+---
+
+<BaseLayout lang={lang} title={t(page.title, lang)}>
+  <PageHero lang={lang} title={t(page.title, lang)} />
+  <section class="section-shell legal-copy">
+    <p class="lead">{copy.legalNotice}</p>
+    <p>{copy.notLegalAdvice}</p>
+  </section>
+</BaseLayout>

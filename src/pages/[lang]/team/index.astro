@@ -1,0 +1,25 @@
+---
+import PageHero from "@components/PageHero.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { labels, languages, localizedPath, teamMembers, t, type Lang } from "@data/site";
+
+export function getStaticPaths() {
+  return languages.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const copy = labels[lang];
+---
+
+<BaseLayout lang={lang} title={copy.lawyers}>
+  <PageHero lang={lang} title={copy.lawyersHeading} text={lang === "tr" ? "Aksaç Hukuk ekibi" : "The Aksaç Law team"} />
+  <section class="section-shell team-grid-page">
+    {teamMembers.map((member) => (
+      <a class="team-card large" href={localizedPath(lang, `team/${member.slug}`)}>
+        <img src={member.image} alt={member.name} loading="lazy" />
+        <strong>{member.name}</strong>
+        <span>{t(member.role, lang)}</span>
+      </a>
+    ))}
+  </section>
+</BaseLayout>

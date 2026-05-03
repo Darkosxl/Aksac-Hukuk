@@ -1,0 +1,59 @@
+---
+import { assets, firm, labels, legalPages, localizedPath, practiceAreas, teamMembers, t, usefulLinks, type Lang } from "@data/site";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = labels[lang];
+---
+
+<footer class="site-footer">
+  <div class="footer-art" style={`background-image: linear-gradient(rgba(38,38,38,.88), rgba(38,38,38,.9)), url('${assets.footerBg}')`}>
+    <div class="footer-grid">
+      <section class="footer-about">
+        <img src={assets.logoWhite} alt={firm.name[lang]} width="320" height="98" />
+        <p>
+          {lang === "tr"
+            ? "Aksaç Hukuk Bürosu 2007 yılında İstanbul'da kurulmuştur. Ticaret, şirketler, gayrimenkul, bankacılık, uluslararası hukuk, ticari ceza ve aile hukuku alanlarında deneyime sahiptir."
+            : "Aksaç Law Office was founded in Istanbul in 2007. It has experience in commercial, corporate, real estate, banking, international, commercial criminal and family law."}
+        </p>
+        <ul class="contact-list">
+          <li>{firm.address[lang]}</li>
+          <li><a href={`tel:${firm.phone.replace(/[^+\d]/g, "")}`}>{firm.phone}</a></li>
+          <li><a href={`mailto:${firm.footerEmail}`}>{firm.footerEmail}</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>{copy.services}</h2>
+        <ul class="footer-links">
+          {practiceAreas.map((area) => <li><a href={localizedPath(lang, `practice-areas/${area.slug}`)}>{t(area.title, lang)}</a></li>)}
+        </ul>
+      </section>
+
+      <section>
+        <h2>{copy.usefulLinks}</h2>
+        <ul class="footer-links">
+          {usefulLinks.map((link) => (
+            <li><a href={link.href} target="_blank" rel="noreferrer">{link.title}</a></li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2>{copy.lawyers}</h2>
+        <ul class="footer-links">
+          {teamMembers.map((member) => <li><a href={localizedPath(lang, `team/${member.slug}`)}>{member.name}</a></li>)}
+        </ul>
+      </section>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© {new Date().getFullYear()} {firm.name[lang]}</p>
+    <nav aria-label="Legal links">
+      {legalPages.map((page) => <a href={localizedPath(lang, `legal/${page.slug}`)}>{t(page.title, lang)}</a>)}
+    </nav>
+  </div>
+</footer>
