@@ -27,7 +27,10 @@ export interface Article {
   date: string;
   category: LocalizedText;
   summary: LocalizedText;
+  author: string;
   image: string;
+  body: string[];
+  sourceUrl: string;
 }
 
 export const languages: Lang[] = ["tr", "en"];
@@ -583,88 +586,148 @@ export const audiences = [
 
 export const articles: Article[] = [
   {
-    slug: "ticaret-hukukunda-risk-yonetimi",
+    slug: "veri-sorumlularinin-kvkk-kapsamindaki-hukuki-durumu",
     title: {
-      tr: "Ticaret Hukukunda Sözleşmesel Risk Yönetimi",
-      en: "Contractual Risk Management in Commercial Law"
+      tr: "Veri Sorumlularının KVKK Kapsamındaki Hukuki Durumu",
+      en: "Legal Status of Data Controllers Under the KVKK"
     },
-    date: "2026-04-11",
-    category: { tr: "Ticaret Hukuku", en: "Commercial Law" },
+    date: "2021-12-28",
+    category: { tr: "Kişisel Verilerin Korunması", en: "Data Protection" },
     summary: {
-      tr: "Ticari ilişkilerde sözleşme öncesi inceleme, teminat, alacak ve uyuşmazlık stratejisinin önemi.",
-      en: "The importance of pre-contract review, securities, receivables and dispute strategy in commercial relationships."
+      tr: "6698 sayılı Kanun kapsamında veri sorumlusunun konumu, yükümlülükleri ve sorumluluk alanı.",
+      en: "The role, obligations and liability scope of data controllers under Turkish data protection law."
     },
-    image: assets.about
+    author: "Av. Aslı Lalezar",
+    image: "/assets/aksac/blog-verisorumlu.jpg",
+    body: [
+      "6698 sayılı Kişisel Verilerin Korunması Kanunu, kişisel verilerin işlenmesinde gerçek kişilerin temel hak ve özgürlüklerini korumayı ve kişisel veri işleyen gerçek ve tüzel kişilerin yükümlülüklerini düzenlemeyi amaçlar.",
+      "Kanun sistematiğinde veri sorumlusu, kişisel verilerin işleme amaçlarını ve vasıtalarını belirleyen, veri kayıt sisteminin kurulmasından ve yönetilmesinden sorumlu olan kişidir. Bu nedenle veri sorumlusunun hukuki durumu yalnızca teknik bir kayıt yükümlülüğüyle sınırlı değildir; aydınlatma, veri güvenliği, başvuru cevaplama ve hukuka uygun işleme süreçlerini de kapsar.",
+      "Veri sorumlusu, kişisel verileri işlerken hukuka ve dürüstlük kurallarına uygun hareket etmeli, verilerin doğru ve gerektiğinde güncel olmasını sağlamalı, belirli, açık ve meşru amaçlar doğrultusunda işlem yapmalı ve işlenen verileri amaçla bağlantılı, sınırlı ve ölçülü tutmalıdır.",
+      "Kişisel verilerin açık rıza olmaksızın işlenebildiği haller Kanun'da sınırlı olarak sayılmıştır. Bu istisnaların dışında kalan veri işleme faaliyetlerinde ilgili kişinin özgür iradesine dayanan, belirli konuya ilişkin ve bilgilendirmeye dayalı açık rızası aranır.",
+      "Veri sorumluları, ilgili kişilerden gelen başvuruları kanuni süre içinde sonuçlandırmalı; veri güvenliğine ilişkin teknik ve idari tedbirleri almalı; ihlal halinde Kurul ve ilgili kişilere bildirim süreçlerini doğru şekilde işletmelidir.",
+      "KVKK'ya aykırı hareket edilmesi, idari para cezaları yanında özel hukuk ve ceza hukuku bakımından da sonuç doğurabilir. Bu nedenle veri sorumlularının faaliyetlerini düzenli olarak denetlemesi, veri envanteri ve aydınlatma metinlerini güncel tutması önem taşır."
+    ],
+    sourceUrl: "https://aksac.av.tr/VeriSorumlulari.aspx"
   },
   {
-    slug: "gayrimenkul-islemlerinde-hukuki-guvenlik",
+    slug: "is-yerinde-mobbing",
     title: {
-      tr: "Gayrimenkul İşlemlerinde Hukuki Güvenlik",
-      en: "Legal Security in Real Estate Transactions"
+      tr: "İş Yerinde Mobbing",
+      en: "Mobbing in the Workplace"
     },
-    date: "2026-03-18",
-    category: { tr: "Gayrimenkul Hukuku", en: "Real Estate Law" },
-    summary: {
-      tr: "Tapu, kira, ipotek ve proje süreçlerinde işlem öncesi risk analizinin rolü.",
-      en: "The role of pre-transaction risk analysis in title deed, lease, mortgage and project matters."
-    },
-    image: assets.realEstate
-  },
-  {
-    slug: "is-hukukunda-arabuluculuk",
-    title: {
-      tr: "İş Hukukunda Arabuluculuk ve Dava Öncesi Hazırlık",
-      en: "Mediation and Pre-Litigation Preparation in Labour Law"
-    },
-    date: "2026-02-27",
+    date: "2021-10-20",
     category: { tr: "İş Hukuku", en: "Labour Law" },
     summary: {
-      tr: "İş uyuşmazlıklarında belge hazırlığı, taleplerin ayrıştırılması ve çözüm zemini kurulması.",
-      en: "Document preparation, claim separation and settlement groundwork in employment disputes."
+      tr: "İş yerinde psikolojik tacizin unsurları, ispatı ve işçi-işveren ilişkisine etkileri.",
+      en: "Elements, proof and employment-law consequences of psychological harassment at work."
     },
-    image: assets.service
+    author: "Av. Avşar Yalçın ALTUN",
+    image: "/assets/aksac/blog-mobbing.jpg",
+    body: [
+      "Mobbing, iş yerinde bir kişiye karşı sistematik biçimde uygulanan, kişiyi yıldırmaya, dışlamaya veya çalışma ortamından uzaklaştırmaya yönelen psikolojik baskı davranışlarını ifade eder.",
+      "Her olumsuz davranış mobbing olarak nitelendirilemez. Mobbingden söz edebilmek için davranışların süreklilik göstermesi, hedef alınan kişi üzerinde baskı oluşturması ve iş ilişkisinin olağan yönetim hakkı sınırlarını aşması gerekir.",
+      "Yargısal değerlendirmelerde mobbing iddiası; tanık anlatımları, yazışmalar, görev değişiklikleri, performans baskısı, disiplin süreçleri, sağlık kayıtları ve iş yerindeki somut olay örgüsü birlikte dikkate alınarak incelenir.",
+      "İşveren, çalışanların kişilik haklarını korumak ve sağlıklı bir çalışma ortamı sağlamakla yükümlüdür. İş yerinde psikolojik tacize göz yumulması veya gerekli önlemlerin alınmaması, işverenin hukuki sorumluluğunu gündeme getirebilir.",
+      "Mobbinge maruz kalan işçi, şartları oluştuğunda iş sözleşmesini haklı nedenle feshedebilir; manevi tazminat, maddi zararların giderilmesi ve diğer işçilik alacakları bakımından hukuki yollara başvurabilir.",
+      "Uyuşmazlıklarda olayların kronolojik biçimde belgelenmesi, yazılı delillerin korunması ve dava ya da arabuluculuk sürecine hazırlığın dikkatle yapılması önemlidir."
+    ],
+    sourceUrl: "https://aksac.av.tr/Mobbing.aspx"
   },
   {
-    slug: "alacak-takibinde-strateji",
+    slug: "konkordato-davalarinda-cekismeli-alacaklar",
     title: {
-      tr: "Alacak Takibinde Etkin Strateji",
-      en: "Effective Strategy in Receivables Collection"
+      tr: "Konkordato Davalarında Çekişmeli Alacaklar",
+      en: "Disputed Receivables in Concordat Proceedings"
     },
-    date: "2026-01-22",
-    category: { tr: "Alacakların Tahsili", en: "Receivables" },
+    date: "2021-09-17",
+    category: { tr: "Konkordato", en: "Concordat" },
     summary: {
-      tr: "İhtar, icra, haciz, ödeme protokolü ve dava süreçlerinin birlikte planlanması.",
-      en: "Joint planning of notices, enforcement, attachment, payment protocols and litigation."
+      tr: "Konkordato sürecinde borçlu tarafından kabul edilmeyen veya miktarı tartışmalı alacakların durumu.",
+      en: "The treatment of receivables disputed by the debtor or contested in amount during concordat proceedings."
     },
-    image: assets.hero2
+    author: "Av. Büşra KAYILI",
+    image: "/assets/aksac/blog-konkordato.jpg",
+    body: [
+      "Konkordato, borçlarını vadesinde ödeyemeyen veya ödeyememe tehlikesi altında bulunan borçlunun, alacaklılarıyla belirli şartlar altında yeniden yapılandırma zemini kurmasını sağlayan hukuki bir kurumdur.",
+      "Konkordato yargılamasında alacaklıların bildirimi, borçlunun alacaklara ilişkin beyanı ve komiserin değerlendirmesi önemlidir. Borçlu tarafından kabul edilmeyen veya miktarı tartışmalı olan alacaklar çekişmeli alacak niteliği kazanır.",
+      "Çekişmeli alacakların konkordato nisabına dahil edilip edilmeyeceği mahkemenin değerlendirmesine tabidir. Mahkeme, alacağın varlığına ilişkin ilk görünüş incelemesi yaparak geçici kabul veya ret yönünde karar verebilir.",
+      "Alacağı çekişmeli hale gelen alacaklı bakımından, konkordato projesinden yararlanma, teminat ve oy hakkı gibi konular ayrı ayrı değerlendirilmelidir. Mahkemenin konkordato sürecindeki kabul kararı, alacağın maddi hukuk anlamında kesin olarak varlığını ispatlamaz.",
+      "Alacağın esasına ilişkin uyuşmazlık, genel hükümlere göre açılacak dava veya devam eden yargılama içinde çözümlenir. Bu nedenle alacaklıların bildirim, itiraz ve dava sürelerini yakından takip etmesi gerekir.",
+      "Konkordato dosyalarında çekişmeli alacakların doğru konumlandırılması, hem borçlu şirketin yeniden yapılandırma planı hem de alacaklıların tahsil stratejisi bakımından belirleyici sonuçlar doğurur."
+    ],
+    sourceUrl: "https://aksac.av.tr/KonkordatoAlacaklar.aspx"
   },
   {
-    slug: "aile-hukukunda-hassasiyet",
+    slug: "icra-takibi-asamalari",
     title: {
-      tr: "Aile Hukukunda Hassas Süreç Yönetimi",
-      en: "Sensitive Process Management in Family Law"
+      tr: "İcra Takibi Aşamaları",
+      en: "Stages of Enforcement Proceedings"
     },
-    date: "2025-12-05",
-    category: { tr: "Aile Hukuku", en: "Family Law" },
+    date: "2021-08-27",
+    category: { tr: "İcra ve İflas Hukuku", en: "Enforcement and Bankruptcy Law" },
     summary: {
-      tr: "Aile hukuku süreçlerinde kişisel hassasiyet, hukuki güvenlik ve uygulanabilir çözüm dengesi.",
-      en: "Balancing personal sensitivity, legal certainty and practical outcomes in family law."
+      tr: "Alacağın tahsili için başlatılan icra takibinin ödeme emrinden haciz ve tahsile uzanan temel aşamaları.",
+      en: "The basic stages of enforcement proceedings from payment order to attachment and collection."
     },
-    image: assets.hero1
+    author: "Av. Faruk YETGİN",
+    image: "/assets/aksac/blog-genelhaciz.jpg",
+    body: [
+      "İcra takibi, alacaklının alacağını devlet eliyle tahsil edebilmesi için İcra ve İflas Kanunu çerçevesinde başvurduğu hukuki takip yoludur. Takibin türü, alacağın dayanağına ve eldeki belgeye göre belirlenir.",
+      "İlamsız takipte alacaklı, takip talebiyle icra dairesine başvurur. İcra dairesi borçluya ödeme emri gönderir ve borçluya borca, faize, yetkiye veya imzaya itiraz edebilmesi için kanuni süre tanınır.",
+      "Borçlu süresinde itiraz etmezse takip kesinleşir. Borçlu itiraz ederse takip durur; alacaklı, alacağın niteliğine göre itirazın kaldırılması veya itirazın iptali yoluna başvurabilir.",
+      "Takibin kesinleşmesiyle birlikte alacaklı haciz talep edebilir. Haciz aşamasında borçlunun taşınır ve taşınmaz malları, banka hesapları, üçüncü kişilerdeki hak ve alacakları ile maaş haczi gibi değerler takip konusu yapılabilir.",
+      "Haczedilen malların satışı ve satış bedelinin dosyaya alınması, tahsil sürecinin devamıdır. Satış ve paraların paylaştırılması aşamalarında sıra cetveli, rehinli alacaklar ve diğer alacaklıların konumu dikkate alınır.",
+      "İcra takiplerinde süreler kısa ve sonuçları ağırdır. Bu nedenle ödeme emri tebliği, itiraz, haciz, satış ve tahsil aşamalarının her birinde dosya stratejisinin belgelerle birlikte planlanması gerekir."
+    ],
+    sourceUrl: "https://aksac.av.tr/IcraTakibiAsamalari.aspx"
   },
   {
-    slug: "bankacilik-kredi-ve-teminatlar",
+    slug: "uluslararasi-alanda-marka-tescili-ve-korumasi",
     title: {
-      tr: "Bankacılıkta Kredi ve Teminat Yapıları",
-      en: "Credit and Security Structures in Banking"
+      tr: "Uluslararası Alanda Marka Tescili ve Koruması",
+      en: "International Trademark Registration and Protection"
     },
-    date: "2025-11-14",
-    category: { tr: "Bankacılık Hukuku", en: "Banking Law" },
+    date: "2021-07-28",
+    category: { tr: "Marka Hukuku", en: "Trademark Law" },
     summary: {
-      tr: "Kredi sözleşmeleri, teminatlar ve banka-müşteri ilişkilerinde hukuki risklerin yönetimi.",
-      en: "Managing legal risks in credit agreements, securities and bank-customer relationships."
+      tr: "Markaların yurt dışında tescili, Madrid sistemi ve uluslararası koruma stratejisinin önemi.",
+      en: "Trademark registration abroad, the Madrid system and the importance of an international protection strategy."
     },
-    image: assets.service
+    author: "Stj. Av. Aslı LALEZAR",
+    image: "/assets/aksac/blog-markatescil.png",
+    body: [
+      "Marka, bir işletmenin mal veya hizmetlerini diğer işletmelerinkinden ayırt etmeye yarayan işarettir. Markanın tescili, hak sahibine marka üzerinde münhasır kullanım ve koruma imkanı sağlar.",
+      "Marka koruması kural olarak ülkeseldir. Türkiye'de tescil edilen bir markanın kendiliğinden başka ülkelerde korunması beklenemez. Bu nedenle ticari faaliyetlerin hedeflendiği ülkelerde ayrıca tescil stratejisi kurulmalıdır.",
+      "Uluslararası marka tescilinde Madrid Protokolü, tek başvuru ile birden fazla ülkede koruma talep edilmesine imkan tanıyan pratik bir sistem sunar. Başvuru, ulusal marka veya marka başvurusuna dayanılarak yapılır.",
+      "Başvurunun hangi ülkeleri kapsayacağı, markanın kullanım alanı, sektörel hedefler, olası itiraz riskleri ve ticari büyüme planı dikkate alınarak belirlenmelidir.",
+      "Tescil sonrası markanın aktif kullanımı, yenileme sürelerinin takibi, benzer marka başvurularına itiraz edilmesi ve ihlal halinde hukuki yolların işletilmesi korumanın devamı için önemlidir.",
+      "Uluslararası marka koruması, yalnızca başvuru yapılmasından ibaret değildir; marka portföyünün düzenli izlenmesi ve her ülkenin mevzuatına uygun şekilde yönetilmesi gerekir."
+    ],
+    sourceUrl: "https://aksac.av.tr/MarkaTescilKorumasi.aspx"
+  },
+  {
+    slug: "faiz-kavrami-ve-ticari-islerde-faiz",
+    title: {
+      tr: "Faiz Kavramı ve Ticari İşlerde Faiz",
+      en: "Interest and Interest in Commercial Transactions"
+    },
+    date: "2021-08-10",
+    category: { tr: "Ticaret Hukuku", en: "Commercial Law" },
+    summary: {
+      tr: "Faiz kavramı, kanuni faiz, temerrüt faizi ve ticari işlerde faiz uygulamasının temel esasları.",
+      en: "The concept of interest, statutory interest, default interest and interest rules in commercial transactions."
+    },
+    author: "Av. Arife ERTEN",
+    image: "/assets/aksac/blog-faiz.jpg",
+    body: [
+      "Faiz, alacaklının para alacağından belirli bir süre yoksun kalmasının karşılığı olarak borçludan talep edebildiği feri nitelikte bir edimdir. Hukuki niteliği itibarıyla asıl alacağa bağlıdır.",
+      "Faiz; kaynağına göre kanuni faiz ve akdi faiz, işlevine göre anapara faizi ve temerrüt faizi olarak ayrılabilir. Tarafların sözleşmede faiz oranı belirleyip belirlemediği, uygulanacak oran bakımından önemlidir.",
+      "Ticari işlerde faiz, Türk Ticaret Kanunu ve ilgili özel düzenlemeler çerçevesinde değerlendirilir. Ticari iş niteliği taşıyan ilişkilerde tarafların tacir olup olmaması, borcun türü ve sözleşme hükümleri birlikte incelenmelidir.",
+      "Temerrüt faizi, borçlunun muaccel bir para borcunu süresinde ifa etmemesi halinde gündeme gelir. Alacaklının temerrüt faizi talep edebilmesi için borcun muaccel olması ve borçlunun temerrüde düşmüş bulunması gerekir.",
+      "Ticari uyuşmazlıklarda faiz başlangıç tarihi, oranı ve türü dava ve icra dosyalarının sonucunu doğrudan etkiler. Bu nedenle ihtar, fatura, sözleşme, vade ve ödeme kayıtlarının doğru değerlendirilmesi gerekir.",
+      "Faize ilişkin hatalı hesaplama veya yanlış nitelendirme, alacak takibi ve dava süreçlerinde hak kaybına neden olabilir. Somut olayda uygulanacak faiz türü ve oranı, ilgili mevzuat ve sözleşme hükümleri birlikte ele alınarak belirlenmelidir."
+    ],
+    sourceUrl: "https://aksac.av.tr/FaizKavrami.aspx"
   }
 ];
 

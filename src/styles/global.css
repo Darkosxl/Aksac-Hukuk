@@ -1103,6 +1103,36 @@ h3 {
   object-fit: cover;
 }
 
+.article-detail p {
+  font-size: 1rem;
+}
+
+.article-note {
+  padding: 12px 14px;
+  color: var(--ink-2) !important;
+  background: var(--paper);
+  border-left: 3px solid var(--gold);
+}
+
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 12px 18px;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.source-link:hover {
+  color: var(--white);
+  background: var(--ink);
+}
+
 .contact-layout {
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;

@@ -22,14 +22,15 @@ const date = new Intl.DateTimeFormat(lang === "tr" ? "tr-TR" : "en-US", {
 ---
 
 <BaseLayout lang={lang} title={t(article.title, lang)} description={t(article.summary, lang)}>
-  <PageHero lang={lang} title={t(article.title, lang)} text={`${t(article.category, lang)} · ${date}`} />
+  <PageHero lang={lang} title={t(article.title, lang)} text={`${t(article.category, lang)} · ${date} · ${article.author}`} />
   <section class="section-shell article-detail">
     <img src={article.image} alt="" loading="lazy" />
     <p class="lead">{t(article.summary, lang)}</p>
-    <p>
-      {lang === "tr"
-        ? "Bu yayın kartı, Aksaç'ın çalışma alanlarını modern site yapısında göstermek için hazırlanmış örnek içeriktir. Yayına alınmadan önce büro tarafından sağlanacak nihai makale metniyle değiştirilmelidir."
-        : "This publication entry is sample content prepared to present Aksaç practice areas in the modern site structure. It should be replaced with final article text supplied by the firm before launch."}
-    </p>
+    {lang === "en" && <p class="article-note">This article is shown in its original Turkish text.</p>}
+    {article.body.map((paragraph: string) => <p>{paragraph}</p>)}
+    <a class="source-link" href={article.sourceUrl} target="_blank" rel="noreferrer">
+      {lang === "tr" ? "Orijinal yayını görüntüle" : "View original publication"}
+      <span aria-hidden="true">→</span>
+    </a>
   </section>
 </BaseLayout>
