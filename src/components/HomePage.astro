@@ -1,0 +1,127 @@
+---
+import ArticleCard from "@components/ArticleCard.astro";
+import Hero from "@components/Hero.astro";
+import PracticeCard from "@components/PracticeCard.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import {
+  about,
+  articles,
+  assets,
+  audiences,
+  firm,
+  labels,
+  localizedPath,
+  practiceAreas,
+  teamMembers,
+  t,
+  type Lang
+} from "@data/site";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = labels[lang];
+const featuredAreas = practiceAreas.slice(0, 3);
+---
+
+<BaseLayout lang={lang} title={firm.shortName[lang]} bodyClass="home-page">
+  <Hero lang={lang} />
+
+  <section class="about-split">
+    <div class="section-shell two-column">
+      <div class="copy-block">
+        <p class="eyebrow">{t(about.eyebrow, lang)}</p>
+        <h2>{t(about.heading, lang)}</h2>
+        <p class="lead">{t(about.intro, lang)}</p>
+        {about.paragraphs.slice(0, 2).map((paragraph) => <p>{t(paragraph, lang)}</p>)}
+        <a class="outline-button" href={localizedPath(lang, "about")}>{copy.aboutUs}</a>
+      </div>
+      <figure class="portrait-card">
+        <img src={assets.about} alt={lang === "tr" ? "Aksaç Hukuk hizmet alanı görseli" : "Aksaç Law practice image"} loading="lazy" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="feature-services section-shell">
+    <div class="section-heading left">
+      <p class="eyebrow">{copy.services}</p>
+      <h2>{lang === "tr" ? "Deneyimli olduğumuz ana alanlar" : "Core areas of experience"}</h2>
+    </div>
+    <div class="feature-grid">
+      {featuredAreas.map((area) => (
+        <article class="feature-card">
+          <img src={area.image} alt="" loading="lazy" />
+          <div>
+            <h3>{t(area.title, lang)}</h3>
+            <p>{t(area.summary, lang)}</p>
+            <a href={localizedPath(lang, `practice-areas/${area.slug}`)}>{copy.readMore}</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="practice-band" style={`background-image: linear-gradient(rgba(52,52,52,.86), rgba(52,52,52,.88)), url('${assets.servicesBg}')`}>
+    <div class="section-shell">
+      <div class="section-heading center light">
+        <h2>{copy.servicesHeading}</h2>
+        <p>{copy.practiceIntro}</p>
+      </div>
+      <div class="practice-grid">
+        {practiceAreas.map((area) => <PracticeCard lang={lang} area={area} compact />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="team-section section-shell" data-carousel>
+    <div class="section-heading row">
+      <div>
+        <p class="eyebrow">{copy.lawyers}</p>
+        <h2>{copy.lawyersHeading}</h2>
+      </div>
+      <div class="carousel-actions">
+        <button type="button" class="icon-button bordered" data-carousel-prev aria-label="Previous team member">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+        </button>
+        <button type="button" class="icon-button bordered" data-carousel-next aria-label="Next team member">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div class="team-track" data-carousel-track>
+      {teamMembers.map((member) => (
+        <a class="team-card" href={localizedPath(lang, `team/${member.slug}`)}>
+          <img src={member.image} alt={member.name} loading="lazy" />
+          <strong>{member.name}</strong>
+          <span>{t(member.role, lang)}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="audience-section section-shell">
+    <div class="audience-grid">
+      {audiences.map((audience) => (
+        <article class="audience-card" style={`background-image: linear-gradient(rgba(15,18,22,.36), rgba(15,18,22,.72)), url('${audience.image}')`}>
+          <h3>{t(audience.title, lang)}</h3>
+          <p>{t(audience.text, lang)}</p>
+          <a href={localizedPath(lang, "contact")}>{copy.learnMore}</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="publications-section section-shell">
+    <div class="section-heading center">
+      <h2>{copy.publicationsHeading}</h2>
+    </div>
+    <div class="article-grid compact">
+      {articles.slice(0, 6).map((article) => <ArticleCard lang={lang} article={article} />)}
+    </div>
+    <div class="center-action">
+      <a class="outline-button" href={localizedPath(lang, "publications")}>{copy.fullArticles}</a>
+    </div>
+  </section>
+</BaseLayout>
