@@ -6,7 +6,7 @@ Deploy this project as a Dockerfile-based app.
 
 - Build type: Dockerfile
 - Dockerfile path: `Dockerfile`
-- Exposed container port: `4432`
+- Exposed container port: `80`
 - Domain: `aksac.av.tr`
 
 ## What The Container Does
@@ -17,7 +17,7 @@ The Dockerfile builds the Astro static site with Node and serves the generated `
 
 ```bash
 docker build -t aksac-site .
-docker run --rm -p 8080:4432 aksac-site
+docker run --rm -p 8080:80 aksac-site
 ```
 
 Open:
